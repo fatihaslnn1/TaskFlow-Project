@@ -1,0 +1,50 @@
+name: TaskFlow CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Kod repository'den çekiliyor
+      uses: actions/checkout@v4
+      
+    - name: .NET 9 SDK Yükleniyor
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        
+    - name: Bağımlılıklar Geri Yükleniyor (Restore)
+      run: dotnet restore
+      
+    - name: Proje Derleniyor (Build)
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Unit ve Integration Testler Çalıştırılıyor
+      run: dotnet test --no-build --configuration Release --verbosity normal
+
+  docker-build-and-push:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+    - name: Kod çekiliyor
+      uses: actions/checkout@v4
+      
+    - name: Docker Hub Oturum Açma
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Docker Image Oluşturuluyor ve Push Ediliyor
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: TaskFlow.WebAPI/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/taskflow-webapi:latest

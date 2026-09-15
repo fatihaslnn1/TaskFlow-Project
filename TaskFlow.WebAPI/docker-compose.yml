@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: taskflow_sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - taskflow-net
+
+  webapi:
+    image: taskflow-webapi
+    container_name: taskflow_api
+    build:
+      context: .
+      dockerfile: TaskFlow.WebAPI/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TaskFlowDb;User=sa;Password=YourStrong@Password123;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver
+    networks:
+      - taskflow-net
+
+volumes:
+  mssql_data:
+
+networks:
+  taskflow-net:
+    driver: bridge

@@ -1,0 +1,15 @@
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\bin\Debug\net9.0\TaskFlow.Application.deps.json
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\bin\Debug\net9.0\TaskFlow.Application.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\bin\Debug\net9.0\TaskFlow.Application.pdb
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\bin\Debug\net9.0\TaskFlow.Domain.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\bin\Debug\net9.0\TaskFlow.Domain.pdb
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.AssemblyInfo.cs
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.7EAD9043.Up2Date
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\refint\TaskFlow.Application.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.pdb
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\ref\TaskFlow.Application.dll

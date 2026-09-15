@@ -1,0 +1,11 @@
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\bin\Debug\net9.0\TaskFlow.Domain.deps.json
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\bin\Debug\net9.0\TaskFlow.Domain.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\bin\Debug\net9.0\TaskFlow.Domain.pdb
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.AssemblyInfo.cs
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\refint\TaskFlow.Domain.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.pdb
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\ref\TaskFlow.Domain.dll

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>taskflow-ui</title>
+    <style>
+      .command-palette-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          padding-top: 10vh;
+          z-index: 9999;
+      }
+
+      .command-palette-modal {
+          background: #fff;
+          width: 500px;
+          border-radius: 8px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+          overflow: hidden;
+      }
+
+      .command-palette-modal input {
+          width: 100%;
+          padding: 15px;
+          border: none;
+          border-bottom: 1px solid #eee;
+          font-size: 16px;
+          outline: none;
+      }
+
+      .command-palette-modal ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          max-height: 250px;
+          overflow-y: auto;
+      }
+
+      .command-palette-modal li {
+          padding: 12px 15px;
+          cursor: pointer;
+          border-bottom: 1px solid #f9f9f9;
+      }
+
+      .command-palette-modal li:hover, .command-palette-modal li.active {
+          background: #f0f4f8;
+          color: #0066cc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Command Palette Modal -->
+    <div id="commandPalette" class="command-palette-overlay" style="display: none;">
+        <div class="command-palette-modal">
+            <input type="text" id="commandInput" placeholder="Bir komut yazın veya seçin... (Çıkış için ESC)" autocomplete="off">
+            <ul id="commandList">
+                <li data-action="new-issue">➕ Yeni Issue Oluştur</li>
+                <li data-action="go-to-project">📂 Projeye Git</li>
+                <li data-action="my-issues">👤 Bana Atanan İşleri Aç</li>
+                <li data-action="search-issues">🔍 Global Issue Ara</li>
+                <li data-action="open-notifications">🔔 Bildirimleri Aç</li>
+                <li data-action="go-to-dashboard">📊 Dashboard'a Git</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      const palette = document.getElementById('commandPalette');
+      const input = document.getElementById('commandInput');
+      const list = document.getElementById('commandList');
+      const items = list.querySelectorAll('li');
+
+      window.addEventListener('keydown', (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+              e.preventDefault();
+              const isOpen = palette.style.display === 'flex';
+              palette.style.display = isOpen ? 'none' : 'flex';
+              if (!isOpen) {
+                  input.value = '';
+                  input.focus();
+              }
+          }
+          
+          if (e.key === 'Escape') {
+              palette.style.display = 'none';
+          }
+      });
+
+      palette.addEventListener('click', (e) => {
+          if (e.target === palette) {
+              palette.style.display = 'none';
+          }
+      });
+
+      items.forEach(item => {
+          item.addEventListener('click', () => {
+              executeAction(item.getAttribute('data-action'));
+          });
+      });
+
+      function executeAction(action) {
+          palette.style.display = 'none';
+          
+          setTimeout(() => {
+              switch (action) {
+                  case 'new-issue':
+                      console.log('Yeni Issue oluşturma ekranı açılıyor...');
+                      break;
+                  case 'go-to-project':
+                      console.log('Proje detay sayfasına yönlendiriliyor...');
+                      break;
+                  case 'my-issues':
+                      console.log('Bana atanan işler listeleniyor...');
+                      break;
+                  case 'search-issues':
+                      console.log('Global Issue arama ekranı açılıyor...');
+                      break;
+                  case 'open-notifications':
+                      console.log('Bildirimler paneli açılıyor...');
+                      break;
+                  case 'go-to-dashboard':
+                      console.log("Dashboard'a yönlendiriliyor...");
+                      break;
+              }
+          }, 100);
+      }
+    </script>
+  </body>
+</html>

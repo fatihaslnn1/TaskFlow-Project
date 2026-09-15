@@ -1,0 +1,881 @@
+2026-09-15 10:59:49.982 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 10:59:50.019 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 10:59:50.033 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 10:59:50.065 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 10:59:50.072 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 10:59:50.073 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 10:59:50.076 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 10:59:50.087 +03:00 [INF] Applying migration '20260915075937_AddAuditLogs'.
+2026-09-15 10:59:50.114 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AuditLogs] (
+    [Id] int NOT NULL IDENTITY,
+    [IssueId] int NOT NULL,
+    [UserId] int NOT NULL,
+    [Action] nvarchar(max) NOT NULL,
+    [Details] nvarchar(max) NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_AuditLogs] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AuditLogs_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 10:59:50.116 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AuditLogs_IssueId] ON [AuditLogs] ([IssueId]);
+2026-09-15 10:59:50.118 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915075937_AddAuditLogs', N'9.0.0');
+2026-09-15 10:59:50.124 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 11:09:40.684 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 11:09:40.718 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 11:09:40.731 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 11:09:40.766 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 11:09:40.771 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 11:09:40.773 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 11:09:40.776 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 11:09:40.785 +03:00 [INF] Applying migration '20260915080929_AddLabels'.
+2026-09-15 11:09:40.810 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Labels] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [Color] nvarchar(max) NOT NULL,
+    [ProjectId] int NOT NULL,
+    CONSTRAINT [PK_Labels] PRIMARY KEY ([Id])
+);
+2026-09-15 11:09:40.814 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueLabels] (
+    [IssueId] int NOT NULL,
+    [LabelId] int NOT NULL,
+    CONSTRAINT [PK_IssueLabels] PRIMARY KEY ([IssueId], [LabelId]),
+    CONSTRAINT [FK_IssueLabels_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_IssueLabels_Labels_LabelId] FOREIGN KEY ([LabelId]) REFERENCES [Labels] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 11:09:40.815 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IssueLabels_LabelId] ON [IssueLabels] ([LabelId]);
+2026-09-15 11:09:40.817 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915080929_AddLabels', N'9.0.0');
+2026-09-15 11:09:40.823 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:13:05.811 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:13:05.849 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:13:05.867 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:13:05.898 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:13:05.905 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:13:05.907 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:13:05.910 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:13:05.919 +03:00 [INF] Applying migration '20260915091251_AddIssueRelations'.
+2026-09-15 12:13:05.940 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [ParentIssueId] int NULL;
+2026-09-15 12:13:05.948 +03:00 [ERR] Failed executing DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueRelations] (
+    [Id] int NOT NULL IDENTITY,
+    [SourceIssueId] int NOT NULL,
+    [TargetIssueId] int NOT NULL,
+    [RelationType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueRelations] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IssueRelations_Issues_SourceIssueId] FOREIGN KEY ([SourceIssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_IssueRelations_Issues_TargetIssueId] FOREIGN KEY ([TargetIssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:14:12.474 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:14:12.517 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:14:12.527 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:14:27.800 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:14:27.836 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:14:27.847 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:14:27.879 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:14:27.885 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:14:27.887 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:14:27.891 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:14:27.901 +03:00 [INF] Applying migration '20260915091419_AddIssueRelations'.
+2026-09-15 12:14:27.920 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [ParentIssueId] int NULL;
+2026-09-15 12:14:27.924 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueRelations] (
+    [Id] int NOT NULL IDENTITY,
+    [SourceIssueId] int NOT NULL,
+    [TargetIssueId] int NOT NULL,
+    [RelationType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueRelations] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IssueRelations_Issues_SourceIssueId] FOREIGN KEY ([SourceIssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_IssueRelations_Issues_TargetIssueId] FOREIGN KEY ([TargetIssueId]) REFERENCES [Issues] ([Id]) ON DELETE NO ACTION
+);
+2026-09-15 12:14:27.928 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_ParentIssueId] ON [Issues] ([ParentIssueId]);
+2026-09-15 12:14:27.930 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IssueRelations_SourceIssueId] ON [IssueRelations] ([SourceIssueId]);
+2026-09-15 12:14:27.932 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IssueRelations_TargetIssueId] ON [IssueRelations] ([TargetIssueId]);
+2026-09-15 12:14:27.934 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_Issues_ParentIssueId] FOREIGN KEY ([ParentIssueId]) REFERENCES [Issues] ([Id]) ON DELETE NO ACTION;
+2026-09-15 12:14:27.937 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915091419_AddIssueRelations', N'9.0.0');
+2026-09-15 12:14:27.942 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:21:47.474 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:21:47.506 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:21:47.520 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:21:47.550 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:21:47.556 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:21:47.558 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:21:47.561 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:21:47.570 +03:00 [INF] Applying migration '20260915092134_AddSprintAndMilestone'.
+2026-09-15 12:21:47.595 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [MilestoneId] int NULL;
+2026-09-15 12:21:47.597 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [SprintId] int NULL;
+2026-09-15 12:21:47.602 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Milestones] (
+    [Id] int NOT NULL IDENTITY,
+    [ProjectId] int NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [DueDate] datetime2 NOT NULL,
+    [IsCompleted] bit NOT NULL,
+    CONSTRAINT [PK_Milestones] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Milestones_Projects_ProjectId] FOREIGN KEY ([ProjectId]) REFERENCES [Projects] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:21:47.605 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Sprints] (
+    [Id] int NOT NULL IDENTITY,
+    [ProjectId] int NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [StartDate] datetime2 NOT NULL,
+    [EndDate] datetime2 NOT NULL,
+    [Goal] nvarchar(max) NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Sprints] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Sprints_Projects_ProjectId] FOREIGN KEY ([ProjectId]) REFERENCES [Projects] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:21:47.609 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_MilestoneId] ON [Issues] ([MilestoneId]);
+2026-09-15 12:21:47.612 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_SprintId] ON [Issues] ([SprintId]);
+2026-09-15 12:21:47.614 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Milestones_ProjectId] ON [Milestones] ([ProjectId]);
+2026-09-15 12:21:47.615 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Sprints_ProjectId] ON [Sprints] ([ProjectId]);
+2026-09-15 12:21:47.621 +03:00 [ERR] Failed executing DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_Milestones_MilestoneId] FOREIGN KEY ([MilestoneId]) REFERENCES [Milestones] ([Id]) ON DELETE SET NULL;
+2026-09-15 12:23:17.863 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:23:17.973 +03:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:23:17.988 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:23:36.492 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:23:36.524 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:23:36.534 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:23:36.573 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:23:36.581 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:23:36.584 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:23:36.589 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:23:36.602 +03:00 [INF] Applying migration '20260915092326_AddSprintAndMilestone'.
+2026-09-15 12:23:36.631 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [MilestoneId] int NULL;
+2026-09-15 12:23:36.633 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [SprintId] int NULL;
+2026-09-15 12:23:36.638 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Milestones] (
+    [Id] int NOT NULL IDENTITY,
+    [ProjectId] int NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [DueDate] datetime2 NOT NULL,
+    [IsCompleted] bit NOT NULL,
+    CONSTRAINT [PK_Milestones] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Milestones_Projects_ProjectId] FOREIGN KEY ([ProjectId]) REFERENCES [Projects] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:23:36.640 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Sprints] (
+    [Id] int NOT NULL IDENTITY,
+    [ProjectId] int NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [StartDate] datetime2 NOT NULL,
+    [EndDate] datetime2 NOT NULL,
+    [Goal] nvarchar(max) NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Sprints] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Sprints_Projects_ProjectId] FOREIGN KEY ([ProjectId]) REFERENCES [Projects] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:23:36.644 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_MilestoneId] ON [Issues] ([MilestoneId]);
+2026-09-15 12:23:36.647 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_SprintId] ON [Issues] ([SprintId]);
+2026-09-15 12:23:36.648 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Milestones_ProjectId] ON [Milestones] ([ProjectId]);
+2026-09-15 12:23:36.650 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Sprints_ProjectId] ON [Sprints] ([ProjectId]);
+2026-09-15 12:23:36.652 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_Milestones_MilestoneId] FOREIGN KEY ([MilestoneId]) REFERENCES [Milestones] ([Id]) ON DELETE NO ACTION;
+2026-09-15 12:23:36.655 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_Sprints_SprintId] FOREIGN KEY ([SprintId]) REFERENCES [Sprints] ([Id]) ON DELETE NO ACTION;
+2026-09-15 12:23:36.657 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915092326_AddSprintAndMilestone', N'9.0.0');
+2026-09-15 12:23:36.662 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:28:40.579 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:28:40.614 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:28:40.629 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:28:40.664 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:28:40.670 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:28:40.671 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:28:40.675 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:28:40.684 +03:00 [INF] Applying migration '20260915092834_AddAcceptanceCriteria'.
+2026-09-15 12:28:40.712 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AcceptanceCriterias] (
+    [Id] int NOT NULL IDENTITY,
+    [FeatureRequestId] int NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [IsCompleted] bit NOT NULL,
+    CONSTRAINT [PK_AcceptanceCriterias] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AcceptanceCriterias_FeatureRequests_FeatureRequestId] FOREIGN KEY ([FeatureRequestId]) REFERENCES [FeatureRequests] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:28:40.714 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AcceptanceCriterias_FeatureRequestId] ON [AcceptanceCriterias] ([FeatureRequestId]);
+2026-09-15 12:28:40.716 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915092834_AddAcceptanceCriteria', N'9.0.0');
+2026-09-15 12:28:40.723 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:39:28.038 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:39:28.075 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:39:28.094 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:39:28.129 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:39:28.136 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:39:28.138 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:39:28.142 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:39:28.151 +03:00 [INF] Applying migration '20260915093919_AddSavedFilters'.
+2026-09-15 12:39:28.186 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [SavedFilters] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] int NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [CriteriaJson] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_SavedFilters] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_SavedFilters_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 12:39:28.188 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_SavedFilters_UserId] ON [SavedFilters] ([UserId]);
+2026-09-15 12:39:28.190 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915093919_AddSavedFilters', N'9.0.0');
+2026-09-15 12:39:28.195 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:41:34.254 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:41:34.294 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:41:34.307 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:41:34.345 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:41:34.352 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:41:34.354 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:41:34.357 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:41:34.369 +03:00 [INF] Applying migration '20260915094129_AddIssueTemplates'.
+2026-09-15 12:41:34.406 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueTemplates] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [IssueType] nvarchar(max) NOT NULL,
+    [Content] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueTemplates] PRIMARY KEY ([Id])
+);
+2026-09-15 12:41:34.421 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Content', N'IssueType', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTemplates]'))
+    SET IDENTITY_INSERT [IssueTemplates] ON;
+INSERT INTO [IssueTemplates] ([Id], [Content], [IssueType], [Name])
+VALUES (1, CONCAT(CAST(N'• **Beklenen Davranış:**' AS nvarchar(max)), nchar(10), nchar(10), N'• **Gerçekleşen Davranış:**', nchar(10), nchar(10), N'• **Tekrarlama Adımları:**', nchar(10), N'1. ', nchar(10), N'2. ', nchar(10), N'3. '), N'Bug', N'Standart Bug Şablonu'),
+(2, CONCAT(CAST(N'• **Kullanıcı Hikayesi (User Story):**' AS nvarchar(max)), nchar(10), nchar(10), N'• **Kabul Kriterleri (Acceptance Criteria):**', nchar(10), N'- ', nchar(10), N'- ', nchar(10), N'- '), N'Feature', N'Standart Feature Şablonu');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Content', N'IssueType', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTemplates]'))
+    SET IDENTITY_INSERT [IssueTemplates] OFF;
+2026-09-15 12:41:34.423 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915094129_AddIssueTemplates', N'9.0.0');
+2026-09-15 12:41:34.428 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:43:55.949 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:43:55.988 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:43:56.000 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:43:56.037 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:43:56.044 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:43:56.046 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:43:56.049 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:43:56.058 +03:00 [INF] Applying migration '20260915094328_UpdateIssueTemplatesWithEnv'.
+2026-09-15 12:43:56.082 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [IssueTemplates] SET [Content] = CONCAT(CAST(N'• **Beklenen Davranış:**' AS nvarchar(max)), nchar(10), nchar(10), N'• **Gerçekleşen Davranış:**', nchar(10), nchar(10), N'• **Tekrarlama Adımları:**', nchar(10), N'1. ', nchar(10), N'2. ', nchar(10), N'3. ', nchar(10), nchar(10), N'• **Ortam:**', nchar(10), nchar(10), N'• **Browser:**', nchar(10), nchar(10), N'• **OS:**', nchar(10))
+WHERE [Id] = 1;
+SELECT @@ROWCOUNT;
+2026-09-15 12:43:56.084 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915094328_UpdateIssueTemplatesWithEnv', N'9.0.0');
+2026-09-15 12:43:56.088 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 12:47:20.721 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.749 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.750 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.751 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.752 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.753 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.753 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:20.754 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.596 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.622 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.623 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.624 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.624 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.625 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.626 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.626 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 12:47:45.971 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:47:45.978 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 12:47:45.988 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 12:47:46.021 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 12:47:46.027 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 12:47:46.029 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 12:47:46.032 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 12:47:46.042 +03:00 [INF] Applying migration '20260915094721_AddSoftDelete'.
+2026-09-15 12:47:46.066 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Projects] ADD [DeletedAt] datetime2 NULL;
+2026-09-15 12:47:46.067 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Projects] ADD [DeletedBy] int NULL;
+2026-09-15 12:47:46.071 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Projects] ADD [IsDeleted] bit NOT NULL DEFAULT CAST(0 AS bit);
+2026-09-15 12:47:46.072 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [DeletedAt] datetime2 NULL;
+2026-09-15 12:47:46.073 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [DeletedBy] int NULL;
+2026-09-15 12:47:46.077 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IsDeleted] bit NOT NULL DEFAULT CAST(0 AS bit);
+2026-09-15 12:47:46.079 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915094721_AddSoftDelete', N'9.0.0');
+2026-09-15 12:47:46.083 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-09-15 13:03:54.970 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:54.996 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:54.997 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:54.998 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:54.999 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:55.000 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:55.001 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:55.001 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:03:55.002 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.285 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.312 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.313 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.314 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.315 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.315 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.316 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.317 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:16.317 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:17.265 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:04:17.272 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 13:04:17.286 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 13:04:17.325 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 13:04:17.333 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:04:17.335 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 13:04:17.339 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 13:04:17.350 +03:00 [INF] Applying migration '20260915100355_AddPdfTablesAndRelations'.
+2026-09-15 13:04:17.406 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssuePriorityId] int NOT NULL DEFAULT 0;
+2026-09-15 13:04:17.409 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssueStatusId] int NOT NULL DEFAULT 0;
+2026-09-15 13:04:17.412 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssueTypeId] int NOT NULL DEFAULT 0;
+2026-09-15 13:04:17.415 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssuePriorities] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssuePriorities] PRIMARY KEY ([Id])
+);
+2026-09-15 13:04:17.417 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueStatuses] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueStatuses] PRIMARY KEY ([Id])
+);
+2026-09-15 13:04:17.419 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueTypes] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueTypes] PRIMARY KEY ([Id])
+);
+2026-09-15 13:04:17.424 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Mentions] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] int NOT NULL,
+    [IssueId] int NULL,
+    [CommentId] int NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_Mentions] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Mentions_Comments_CommentId] FOREIGN KEY ([CommentId]) REFERENCES [Comments] ([Id]),
+    CONSTRAINT [FK_Mentions_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]),
+    CONSTRAINT [FK_Mentions_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 13:04:17.427 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [SprintIssues] (
+    [SprintId] int NOT NULL,
+    [IssueId] int NOT NULL,
+    [AddedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_SprintIssues] PRIMARY KEY ([SprintId], [IssueId]),
+    CONSTRAINT [FK_SprintIssues_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_SprintIssues_Sprints_SprintId] FOREIGN KEY ([SprintId]) REFERENCES [Sprints] ([Id]) ON DELETE NO ACTION
+);
+2026-09-15 13:04:17.443 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssuePriorities]'))
+    SET IDENTITY_INSERT [IssuePriorities] ON;
+INSERT INTO [IssuePriorities] ([Id], [Name])
+VALUES (1, N'Low'),
+(2, N'Medium'),
+(3, N'High'),
+(4, N'Critical');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssuePriorities]'))
+    SET IDENTITY_INSERT [IssuePriorities] OFF;
+2026-09-15 13:04:17.451 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueStatuses]'))
+    SET IDENTITY_INSERT [IssueStatuses] ON;
+INSERT INTO [IssueStatuses] ([Id], [Name])
+VALUES (1, N'Todo'),
+(2, N'In Progress'),
+(3, N'Done');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueStatuses]'))
+    SET IDENTITY_INSERT [IssueStatuses] OFF;
+2026-09-15 13:04:17.461 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTypes]'))
+    SET IDENTITY_INSERT [IssueTypes] ON;
+INSERT INTO [IssueTypes] ([Id], [Name])
+VALUES (1, N'Task'),
+(2, N'Bug'),
+(3, N'Feature');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTypes]'))
+    SET IDENTITY_INSERT [IssueTypes] OFF;
+2026-09-15 13:04:17.466 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssuePriorityId] ON [Issues] ([IssuePriorityId]);
+2026-09-15 13:04:17.469 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssueStatusId] ON [Issues] ([IssueStatusId]);
+2026-09-15 13:04:17.472 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssueTypeId] ON [Issues] ([IssueTypeId]);
+2026-09-15 13:04:17.474 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_CommentId] ON [Mentions] ([CommentId]);
+2026-09-15 13:04:17.475 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_IssueId] ON [Mentions] ([IssueId]);
+2026-09-15 13:04:17.477 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_UserId] ON [Mentions] ([UserId]);
+2026-09-15 13:04:17.478 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_SprintIssues_IssueId] ON [SprintIssues] ([IssueId]);
+2026-09-15 13:04:17.487 +03:00 [ERR] Failed executing DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_IssuePriorities_IssuePriorityId] FOREIGN KEY ([IssuePriorityId]) REFERENCES [IssuePriorities] ([Id]) ON DELETE CASCADE;
+2026-09-15 13:04:59.004 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.031 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.032 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.033 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.033 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.034 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.035 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.035 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.036 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:04:59.585 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:04:59.599 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 13:04:59.610 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 13:05:33.330 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.351 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.352 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.352 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.353 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.354 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.355 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.356 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.357 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:33.865 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:05:33.879 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 13:05:33.887 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 13:05:59.825 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.856 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.857 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.858 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.858 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.859 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.859 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.860 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:05:59.861 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.628 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.653 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.654 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.654 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.655 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.656 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.656 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.657 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:26.657 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.292 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.316 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.317 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.317 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.318 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.318 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.319 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.320 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.321 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-15 13:06:32.673 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:06:32.680 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-09-15 13:06:32.691 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-09-15 13:06:32.723 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-09-15 13:06:32.728 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-09-15 13:06:32.730 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-09-15 13:06:32.732 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-09-15 13:06:32.740 +03:00 [INF] Applying migration '20260915100627_AddPdfTablesAndRelations'.
+2026-09-15 13:06:32.783 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssuePriorityId] int NOT NULL DEFAULT 2;
+2026-09-15 13:06:32.785 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssueStatusId] int NOT NULL DEFAULT 1;
+2026-09-15 13:06:32.787 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD [IssueTypeId] int NOT NULL DEFAULT 1;
+2026-09-15 13:06:32.789 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssuePriorities] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssuePriorities] PRIMARY KEY ([Id])
+);
+2026-09-15 13:06:32.791 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueStatuses] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueStatuses] PRIMARY KEY ([Id])
+);
+2026-09-15 13:06:32.793 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IssueTypes] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_IssueTypes] PRIMARY KEY ([Id])
+);
+2026-09-15 13:06:32.797 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Mentions] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] int NOT NULL,
+    [IssueId] int NULL,
+    [CommentId] int NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_Mentions] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Mentions_Comments_CommentId] FOREIGN KEY ([CommentId]) REFERENCES [Comments] ([Id]),
+    CONSTRAINT [FK_Mentions_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]),
+    CONSTRAINT [FK_Mentions_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);
+2026-09-15 13:06:32.801 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [SprintIssues] (
+    [SprintId] int NOT NULL,
+    [IssueId] int NOT NULL,
+    [AddedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_SprintIssues] PRIMARY KEY ([SprintId], [IssueId]),
+    CONSTRAINT [FK_SprintIssues_Issues_IssueId] FOREIGN KEY ([IssueId]) REFERENCES [Issues] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_SprintIssues_Sprints_SprintId] FOREIGN KEY ([SprintId]) REFERENCES [Sprints] ([Id]) ON DELETE NO ACTION
+);
+2026-09-15 13:06:32.810 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssuePriorities]'))
+    SET IDENTITY_INSERT [IssuePriorities] ON;
+INSERT INTO [IssuePriorities] ([Id], [Name])
+VALUES (1, N'Low'),
+(2, N'Medium'),
+(3, N'High'),
+(4, N'Critical');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssuePriorities]'))
+    SET IDENTITY_INSERT [IssuePriorities] OFF;
+2026-09-15 13:06:32.817 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueStatuses]'))
+    SET IDENTITY_INSERT [IssueStatuses] ON;
+INSERT INTO [IssueStatuses] ([Id], [Name])
+VALUES (1, N'Todo'),
+(2, N'In Progress'),
+(3, N'Done');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueStatuses]'))
+    SET IDENTITY_INSERT [IssueStatuses] OFF;
+2026-09-15 13:06:32.823 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTypes]'))
+    SET IDENTITY_INSERT [IssueTypes] ON;
+INSERT INTO [IssueTypes] ([Id], [Name])
+VALUES (1, N'Task'),
+(2, N'Bug'),
+(3, N'Feature');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[IssueTypes]'))
+    SET IDENTITY_INSERT [IssueTypes] OFF;
+2026-09-15 13:06:32.826 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssuePriorityId] ON [Issues] ([IssuePriorityId]);
+2026-09-15 13:06:32.828 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssueStatusId] ON [Issues] ([IssueStatusId]);
+2026-09-15 13:06:32.831 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Issues_IssueTypeId] ON [Issues] ([IssueTypeId]);
+2026-09-15 13:06:32.832 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_CommentId] ON [Mentions] ([CommentId]);
+2026-09-15 13:06:32.834 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_IssueId] ON [Mentions] ([IssueId]);
+2026-09-15 13:06:32.836 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mentions_UserId] ON [Mentions] ([UserId]);
+2026-09-15 13:06:32.837 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_SprintIssues_IssueId] ON [SprintIssues] ([IssueId]);
+2026-09-15 13:06:32.840 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_IssuePriorities_IssuePriorityId] FOREIGN KEY ([IssuePriorityId]) REFERENCES [IssuePriorities] ([Id]) ON DELETE CASCADE;
+2026-09-15 13:06:32.843 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_IssueStatuses_IssueStatusId] FOREIGN KEY ([IssueStatusId]) REFERENCES [IssueStatuses] ([Id]) ON DELETE CASCADE;
+2026-09-15 13:06:32.846 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Issues] ADD CONSTRAINT [FK_Issues_IssueTypes_IssueTypeId] FOREIGN KEY ([IssueTypeId]) REFERENCES [IssueTypes] ([Id]) ON DELETE CASCADE;
+2026-09-15 13:06:32.847 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260915100627_AddPdfTablesAndRelations', N'9.0.0');
+2026-09-15 13:06:32.852 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
