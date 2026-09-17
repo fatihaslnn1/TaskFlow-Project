@@ -17,3 +17,4 @@ C:\Users\PC\Desktop\stajproje1\TaskFlow.Infrastructure\obj\Debug\net9.0\refint\T
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Infrastructure\obj\Debug\net9.0\TaskFlow.Infrastructure.pdb
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Infrastructure\obj\Debug\net9.0\TaskFlow.Infrastructure.genruntimeconfig.cache
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Infrastructure\obj\Debug\net9.0\ref\TaskFlow.Infrastructure.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Infrastructure\obj\Debug\net9.0\TaskFlow.Infrastructure.sourcelink.json

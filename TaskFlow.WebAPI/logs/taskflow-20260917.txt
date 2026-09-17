@@ -1,0 +1,263 @@
+2026-09-17 01:02:49.305 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - null null
+2026-09-17 01:02:49.305 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - null null
+2026-09-17 01:02:49.400 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-09-17 01:02:49.401 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:49.401 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:49.409 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - 204 null null 106.452ms
+2026-09-17 01:02:49.409 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - 204 null null 106.452ms
+2026-09-17 01:02:49.416 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Projects - null null
+2026-09-17 01:02:49.424 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:49.491 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:49.512 +03:00 [INF] Route matched with {action = "GetProjects", controller = "Projects"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProjects() on controller TaskFlow.WebAPI.Controllers.ProjectsController (TaskFlow.WebAPI).
+2026-09-17 01:02:50.277 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreatedAt], [p].[DeletedAt], [p].[DeletedBy], [p].[IsDeleted], [p].[ProjectKey], [p].[ProjectName]
+FROM [Projects] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit)
+2026-09-17 01:02:50.324 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[TaskFlow.Domain.Entities.Project, TaskFlow.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-17 01:02:50.370 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Projects - null null
+2026-09-17 01:02:50.371 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI) in 856.4489ms
+2026-09-17 01:02:50.371 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:50.372 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:50.374 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:50.375 +03:00 [INF] Route matched with {action = "GetProjects", controller = "Projects"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProjects() on controller TaskFlow.WebAPI.Controllers.ProjectsController (TaskFlow.WebAPI).
+2026-09-17 01:02:50.377 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Projects - 200 null application/json; charset=utf-8 961.5482ms
+2026-09-17 01:02:50.419 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreatedAt], [p].[DeletedAt], [p].[DeletedBy], [p].[IsDeleted], [p].[ProjectKey], [p].[ProjectName]
+FROM [Projects] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit)
+2026-09-17 01:02:50.422 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[TaskFlow.Domain.Entities.Project, TaskFlow.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-17 01:02:50.423 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI) in 46.4095ms
+2026-09-17 01:02:50.423 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:50.424 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Projects - 200 null application/json; charset=utf-8 54.3537ms
+2026-09-17 01:02:53.371 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Auth/login - null null
+2026-09-17 01:02:53.373 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:53.373 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Auth/login - 204 null null 2.1063ms
+2026-09-17 01:02:53.375 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/api/Auth/login - application/json 53
+2026-09-17 01:02:53.377 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:53.379 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI)'
+2026-09-17 01:02:53.385 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(TaskFlow.Application.DTOs.LoginDto) on controller TaskFlow.WebAPI.Controllers.AuthController (TaskFlow.WebAPI).
+2026-09-17 01:02:53.442 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__dto_Email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ActivationToken], [u].[Email], [u].[FullName], [u].[IsActive], [u].[PasswordHash], [u].[RoleId], [r].[Id], [r].[Name]
+FROM [Users] AS [u]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+WHERE [u].[Email] = @__dto_Email_0
+2026-09-17 01:02:53.469 +03:00 [INF] Executing OkObjectResult, writing value of type 'TaskFlow.Application.DTOs.TokenResponseDto'.
+2026-09-17 01:02:53.471 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI) in 84.7488ms
+2026-09-17 01:02:53.471 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI)'
+2026-09-17 01:02:53.472 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/api/Auth/login - 200 null application/json; charset=utf-8 96.9067ms
+2026-09-17 01:02:53.477 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Projects - null null
+2026-09-17 01:02:53.480 +03:00 [INF] CORS policy execution successful.
+2026-09-17 01:02:53.482 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:53.483 +03:00 [INF] Route matched with {action = "GetProjects", controller = "Projects"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProjects() on controller TaskFlow.WebAPI.Controllers.ProjectsController (TaskFlow.WebAPI).
+2026-09-17 01:02:53.485 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreatedAt], [p].[DeletedAt], [p].[DeletedBy], [p].[IsDeleted], [p].[ProjectKey], [p].[ProjectName]
+FROM [Projects] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit)
+2026-09-17 01:02:53.487 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[TaskFlow.Domain.Entities.Project, TaskFlow.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-17 01:02:53.488 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI) in 3.9858ms
+2026-09-17 01:02:53.488 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 01:02:53.489 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Projects - 200 null application/json; charset=utf-8 11.442ms
+2026-09-17 01:16:27.410 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__now_0='?' (DbType = DateTime2), @__AddHours_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] > @__now_0 AND [i].[DueDate] <= @__AddHours_1 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL
+2026-09-17 01:16:27.414 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] < @__now_0 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL
+2026-09-17 14:39:38.817 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-17 14:39:38.957 +03:00 [INF] Now listening on: http://localhost:5045
+2026-09-17 14:39:38.960 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-17 14:39:38.961 +03:00 [INF] Hosting environment: Development
+2026-09-17 14:39:38.961 +03:00 [INF] Content root path: C:\Users\PC\Desktop\stajproje1\TaskFlow.WebAPI
+2026-09-17 14:39:39.272 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'AuditLog'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.273 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.273 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueLabel'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.274 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'IssueRelation'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.274 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Milestone'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.275 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'ProjectMember'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.276 +03:00 [WRN] Entity 'Project' has a global query filter defined and is the required end of a relationship with the entity 'Sprint'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.276 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SprintIssue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:39.277 +03:00 [WRN] Entity 'Issue' has a global query filter defined and is the required end of a relationship with the entity 'SubTask'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-09-17 14:39:40.659 +03:00 [INF] Executed DbCommand (32ms) [Parameters=[@__now_0='?' (DbType = DateTime2), @__AddHours_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] > @__now_0 AND [i].[DueDate] <= @__AddHours_1 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL
+2026-09-17 14:39:40.689 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] < @__now_0 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL
+2026-09-17 14:40:03.351 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Auth/login - null null
+2026-09-17 14:40:03.388 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-09-17 14:40:03.390 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:03.397 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Auth/login - 204 null null 47.5078ms
+2026-09-17 14:40:03.403 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/api/Auth/login - application/json 53
+2026-09-17 14:40:03.409 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:03.438 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI)'
+2026-09-17 14:40:03.453 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(TaskFlow.Application.DTOs.LoginDto) on controller TaskFlow.WebAPI.Controllers.AuthController (TaskFlow.WebAPI).
+2026-09-17 14:40:03.550 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__dto_Email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ActivationToken], [u].[Email], [u].[FullName], [u].[IsActive], [u].[PasswordHash], [u].[RoleId], [r].[Id], [r].[Name]
+FROM [Users] AS [u]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+WHERE [u].[Email] = @__dto_Email_0
+2026-09-17 14:40:03.614 +03:00 [INF] Executing OkObjectResult, writing value of type 'TaskFlow.Application.DTOs.TokenResponseDto'.
+2026-09-17 14:40:03.623 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI) in 167.9932ms
+2026-09-17 14:40:03.624 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.AuthController.Login (TaskFlow.WebAPI)'
+2026-09-17 14:40:03.628 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/api/Auth/login - 200 null application/json; charset=utf-8 224.9055ms
+2026-09-17 14:40:03.638 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - null null
+2026-09-17 14:40:03.640 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:03.641 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Projects - 204 null null 2.9185ms
+2026-09-17 14:40:03.643 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Projects - null null
+2026-09-17 14:40:03.647 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:03.667 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 14:40:03.671 +03:00 [INF] Route matched with {action = "GetProjects", controller = "Projects"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProjects() on controller TaskFlow.WebAPI.Controllers.ProjectsController (TaskFlow.WebAPI).
+2026-09-17 14:40:03.713 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreatedAt], [p].[DeletedAt], [p].[DeletedBy], [p].[IsDeleted], [p].[ProjectKey], [p].[ProjectName]
+FROM [Projects] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit)
+2026-09-17 14:40:03.727 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[TaskFlow.Domain.Entities.Project, TaskFlow.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-17 14:40:03.744 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI) in 72.373ms
+2026-09-17 14:40:03.745 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.ProjectsController.GetProjects (TaskFlow.WebAPI)'
+2026-09-17 14:40:03.746 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Projects - 200 null application/json; charset=utf-8 102.712ms
+2026-09-17 14:40:04.837 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:04.840 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.841 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:04.841 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 3.6851ms
+2026-09-17 14:40:04.841 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.842 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.843 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.843 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.844 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:04.845 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.848 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.848 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.849 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 8.2255ms
+2026-09-17 14:40:04.850 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.851 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 9.6728ms
+2026-09-17 14:40:04.851 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:04.852 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 10.0735ms
+2026-09-17 14:40:04.853 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 10.0011ms
+2026-09-17 14:40:04.856 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.858 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.860 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 15.6286ms
+2026-09-17 14:40:04.861 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.862 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 10.8056ms
+2026-09-17 14:40:04.863 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:04.864 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 7.132ms
+2026-09-17 14:40:04.864 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.864 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:04.866 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:04.867 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.869 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 4.9003ms
+2026-09-17 14:40:04.870 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:04.870 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:04.871 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:04.872 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 2.7561ms
+2026-09-17 14:40:04.874 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:10.138 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues - null null
+2026-09-17 14:40:10.139 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:10.140 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues - 204 null null 1.7884ms
+2026-09-17 14:40:10.142 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/api/Issues - application/json 88
+2026-09-17 14:40:10.143 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:10.145 +03:00 [INF] Executing endpoint 'TaskFlow.WebAPI.Controllers.IssuesController.CreateIssue (TaskFlow.WebAPI)'
+2026-09-17 14:40:10.148 +03:00 [INF] Route matched with {action = "CreateIssue", controller = "Issues"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateIssue(TaskFlow.WebAPI.Controllers.CreateIssueDto) on controller TaskFlow.WebAPI.Controllers.IssuesController (TaskFlow.WebAPI).
+2026-09-17 14:40:10.185 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CreatedAt], [p].[DeletedAt], [p].[DeletedBy], [p].[IsDeleted], [p].[ProjectKey], [p].[ProjectName]
+FROM [Projects] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[Id] = @__p_0
+2026-09-17 14:40:10.202 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__dto_ProjectId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[ProjectId] = @__dto_ProjectId_0
+2026-09-17 14:40:10.298 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Int32), @p4='?' (Size = 4000), @p5='?' (DbType = DateTime2), @p6='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p7='?' (DbType = Boolean), @p8='?' (Size = 4000), @p9='?' (DbType = Int32), @p10='?' (DbType = Int32), @p11='?' (Size = 4000), @p12='?' (DbType = Int32), @p13='?' (DbType = Int32), @p14='?' (DbType = Int32), @p15='?' (Size = 4000), @p16='?' (DbType = Int32), @p17='?' (DbType = Int32), @p18='?' (DbType = Int32), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Issues] ([AssigneeId], [CreatedAt], [DeletedAt], [DeletedBy], [Description], [DueDate], [EstimatedEffort], [IsDeleted], [IssueKey], [IssuePriorityId], [IssueStatusId], [IssueType], [IssueTypeId], [MilestoneId], [ParentIssueId], [Priority], [ProjectId], [ReporterId], [SprintId], [Status], [Title], [UpdatedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21);
+2026-09-17 14:40:10.324 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Action], [CreatedAt], [Details], [IssueId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-09-17 14:40:10.326 +03:00 [INF] Executing OkObjectResult, writing value of type 'TaskFlow.Domain.Entities.Issue'.
+2026-09-17 14:40:10.334 +03:00 [INF] Executed action TaskFlow.WebAPI.Controllers.IssuesController.CreateIssue (TaskFlow.WebAPI) in 185.6901ms
+2026-09-17 14:40:10.335 +03:00 [INF] Executed endpoint 'TaskFlow.WebAPI.Controllers.IssuesController.CreateIssue (TaskFlow.WebAPI)'
+2026-09-17 14:40:10.336 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/api/Issues - 200 null application/json; charset=utf-8 193.7318ms
+2026-09-17 14:40:10.338 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:10.339 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:10.340 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 1.6468ms
+2026-09-17 14:40:10.343 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:10.344 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:10.344 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 1.6098ms
+2026-09-17 14:40:10.346 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:13.690 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:13.691 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:13.692 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:13.692 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.693 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.694 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.695 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 4.814ms
+2026-09-17 14:40:13.696 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 4.5912ms
+2026-09-17 14:40:13.696 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 4.7955ms
+2026-09-17 14:40:13.697 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:13.698 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:13.700 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:13.702 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:13.703 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.704 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.705 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.707 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 9.2875ms
+2026-09-17 14:40:13.707 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 8.8704ms
+2026-09-17 14:40:13.708 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 7.1135ms
+2026-09-17 14:40:13.708 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:13.709 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:13.710 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:13.712 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:13.713 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:13.715 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 7.4321ms
+2026-09-17 14:40:13.717 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:15.841 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:15.842 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null null
+2026-09-17 14:40:15.842 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.842 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.843 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.843 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.844 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.845 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.847 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.848 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.848 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 7.7199ms
+2026-09-17 14:40:15.849 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 204 null null 7.0201ms
+2026-09-17 14:40:15.849 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 7.1411ms
+2026-09-17 14:40:15.850 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 7.4093ms
+2026-09-17 14:40:15.850 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5045/api/Issues/project/2 - 204 null null 7.2401ms
+2026-09-17 14:40:15.850 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:15.851 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - null 0
+2026-09-17 14:40:15.857 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.858 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.859 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.860 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 9.8742ms
+2026-09-17 14:40:15.861 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5045/taskflowHub/negotiate?negotiateVersion=1 - 404 0 null 9.2718ms
+2026-09-17 14:40:15.862 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:15.863 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5045/taskflowHub/negotiate, Response status code: 404
+2026-09-17 14:40:15.864 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.865 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 8.2348ms
+2026-09-17 14:40:15.866 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.867 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:15.868 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.869 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 2.8697ms
+2026-09-17 14:40:15.869 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - null null
+2026-09-17 14:40:15.870 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 14:40:15.871 +03:00 [INF] CORS policy execution successful.
+2026-09-17 14:40:15.872 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5045/api/Issues/project/2 - 404 0 null 2.8058ms
+2026-09-17 14:40:15.873 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5045/api/Issues/project/2, Response status code: 404
+2026-09-17 15:39:41.250 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@__now_0='?' (DbType = DateTime2), @__AddHours_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] > @__now_0 AND [i].[DueDate] <= @__AddHours_1 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL
+2026-09-17 15:39:41.253 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[AssigneeId], [i].[CreatedAt], [i].[DeletedAt], [i].[DeletedBy], [i].[Description], [i].[DueDate], [i].[EstimatedEffort], [i].[IsDeleted], [i].[IssueKey], [i].[IssuePriorityId], [i].[IssueStatusId], [i].[IssueType], [i].[IssueTypeId], [i].[MilestoneId], [i].[ParentIssueId], [i].[Priority], [i].[ProjectId], [i].[ReporterId], [i].[SprintId], [i].[Status], [i].[Title], [i].[UpdatedAt]
+FROM [Issues] AS [i]
+WHERE [i].[IsDeleted] = CAST(0 AS bit) AND [i].[DueDate] IS NOT NULL AND [i].[DueDate] < @__now_0 AND [i].[Status] <> N'Done' AND [i].[AssigneeId] IS NOT NULL

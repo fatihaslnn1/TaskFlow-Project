@@ -9,3 +9,4 @@ C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\refint\TaskFlow.Domain.dll
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.pdb
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\ref\TaskFlow.Domain.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Domain\obj\Debug\net9.0\TaskFlow.Domain.sourcelink.json

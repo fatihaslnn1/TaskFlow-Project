@@ -13,3 +13,4 @@ C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Ap
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\refint\TaskFlow.Application.dll
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.pdb
 C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\ref\TaskFlow.Application.dll
+C:\Users\PC\Desktop\stajproje1\TaskFlow.Application\obj\Debug\net9.0\TaskFlow.Application.sourcelink.json
